@@ -1,0 +1,143 @@
+<?php
+		include('connection.php');
+
+			$name = $_POST['name'];
+			$username = $_POST['username'];
+			$password = $_POST['password'];
+			$retype = $_POST['password2'];
+				
+				if($retype != $password)
+				{
+					echo '<script language="javascript">';
+					echo 'alert("password not same");';
+					echo 'window.location.href="register.php";';
+					echo '</script>';
+				}
+				
+				else if ($retype == $password)
+				{
+					$sql = mysqli_query($conn,"INSERT INTO user (username, name, password) VALUES ('$username', '$name', '$password') ");
+					//query to insert data into database: INSERT INTO table name (attribute name) VALUES ('$username', '$name', '$password')
+					if($sql == TRUE)
+					{
+						echo '<script language="javascript">';
+						echo 'alert("Your registration are Successfuly");';
+						echo 'window.location.href="index.php";';
+						echo '</script>';
+					}
+			
+					else 
+					{
+					echo "Error : " . $sql . "<br>" . $conn -> error;
+					}
+				}
+			$conn -> close();
+	?>
+
+
+
+<html>
+<head>
+<title>Dental Care</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel='icon' href='picture/logo.png' type='image/gif' size='200x200'>
+<link href="https://fonts.googleapis.com/css?family=Kodchasan" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
+<style>
+
+.content {
+padding-top: 70px;
+width: 100%;
+height: 100%;
+background-image: url('picture/background.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.content p{
+	font-family: 'Kodchasan', sans-serif;
+	margin-left: 650px;
+	margin-top: 100px;	
+	margin-bottom: 10px;
+	font-size: 30px;
+	display: inline-block;
+	text-transform: uppercase;
+	border-bottom: 4px solid #3498db;	
+	padding-bottom: 10px;
+	
+}
+
+table { 
+	margin-left: 500px;
+	margin-top: 20px;
+	font-family: 'K2D',sans-serif;
+	
+}
+
+.input{
+	margin-bottom: 15px;
+	margin-left: 30px;
+	width: 100%;
+	height: 25px;
+	border-radius: 5px;
+	font-family: 'K2D',sans-serif;
+}
+
+.Lbtn{
+	margin-left: 750px;
+	padding: 5.5px;
+	border-radius: 10px;
+	cursor: pointer;
+	font-family: 'K2D',sans-serif;
+	
+}
+</style>
+</head>
+<body> 
+
+<header>
+<ul>
+<li><img class='logo' src='picture/logo.png' width='50px' height='50px'></li>
+<li><h1>Dental Care</h1></li>
+<li><a href="index.html">HOME </a></li>
+<li><a href="about.html">ABOUT</a></li>
+<li><a href="services.html">SERVICES</a></li>
+<li><a href="doctors.html">DOCTORS</a></li>
+<li><a href="contact.html">CONTACT US</a></li>
+<li><a href="login.html">LOGIN</a></li>
+</ul>
+</header>
+
+<div class="content">
+<form action="register.php" method="POST"> 
+	<p> Register </p>
+	<table border="0" cellpadding="5" cellspacing="0">
+
+				<tr>
+					<td>Name</td>
+					<td><input class="input" type="text" name="name" autofocus required></td><br>
+				</tr>
+				<tr>
+					<td>Username</td>
+					<td><input class="input" type="text" name="username" required></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input class="input" type="password" name="password" required></td>
+				</tr>
+				<tr>
+					<td>Retype Password</td>
+					<td><input class="input" type="password" name="password2" required></td>
+				</tr>
+				<br>				
+				
+				
+	</table>
+	<br>
+		<input class="Lbtn" type="submit" name="Register" value="REGISTER"><br><br>
+</form>
+</div>
+
+
+</body>
+</html>
